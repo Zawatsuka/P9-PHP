@@ -1,4 +1,4 @@
-<?php setlocale (LC_TIME, 'fr_FR.utf8','fra'); ?>
+<?php setlocale (LC_TIME, 'fr_FR.utf8','fra.utf8'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,6 +7,6 @@
     <title>EXO3</title>
 </head>
 <body>
-    <?= (strftime("%A %d %B %Y")); ?>
+    <p><?= strftime("%A %d %B %Y"); ?></p>
 </body>
 </html>
