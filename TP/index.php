@@ -1,9 +1,8 @@
 <?php 
-    
-    $dayArray = array( "Lundi" , "Mardi" ,"Mercredi","Jeudi","Vendredi","Samedi","Dimanche");
 
+    // creation d'une fonction calendar 
      function calendar(){
-
+        $daysofweek = array("lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche");
         // declaration des variables liés au select month et year du html
         $month = $_GET['month'];
         $year = $_GET['year'];
@@ -11,20 +10,27 @@
         // si le l'utilisateur utilise le select pour un mois et une année donné
         if(isset($month)& isset($year)){
             $day = array();
+            // declaration d'une variable qui compte le nombre de jours dans un mois
             $dayNumberInMonth = cal_days_in_month(CAL_GREGORIAN , $month, $year);
-            $firstdayofmonth=date("w", mktime(0, 0, 0, $month, 1, $year ));
-            echo $firstdayofmonth ;
-    
+            // declaration du premier jour du mois 
+            $firstdayofmonth = date("w", mktime(0, 0, 0, $month, 1, $year ));
+            for($i=0 ; $i<$firstdayofmonth; $i++){
+                $day[]= null;
+                echo "<td></td>";
+            }
+            var_dump($day);
                 //sinon afficher le mois a l'année actuelle
         }else{
             $day = array();
             $dayNumberInMonth = cal_days_in_month(CAL_GREGORIAN , date("m"), date("Y"));
+            // declaration du premier jour du mois actuel
             $firstdayofmonth=date("w", mktime(0, 0, 0, date("m"), 1, date("Y") ));
-            echo $firstdayofmonth ;
+                echo $firstdayofmonth ;
         }
-        
 
-        for ($i = 1; $i <= $dayNumberInMonth; $i++) {
+
+        for ($i = 1; $i < $dayNumberInMonth; $i++) {
+            $day[]= $i;
         if ($i % 7 == 1) {
             echo '<tr><td>' . $i . '</td>';
         } else {
@@ -33,7 +39,6 @@
         }
             echo '</tr>';
         }
-        
         ?>
 
 <!DOCTYPE html>

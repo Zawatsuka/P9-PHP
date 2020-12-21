@@ -6,7 +6,7 @@
     <title>EX7</title>
 </head>
 <body>
-    <?php echo date('d-m-Y' , strtotime('-20 days'));?>
+    <?php echo date('d-m-Y' , strtotime('-22 days'));?>
 <a href=""></a>
 </body>
 </html>
