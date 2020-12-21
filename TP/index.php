@@ -1,4 +1,5 @@
 <?php 
+    
     $dayArray = array( "Lundi" , "Mardi" ,"Mercredi","Jeudi","Vendredi","Samedi","Dimanche");
 
      function calendar(){
@@ -11,26 +12,28 @@
         if(isset($month)& isset($year)){
             $day = array();
             $dayNumberInMonth = cal_days_in_month(CAL_GREGORIAN , $month, $year);
-    
+            $firstdayofmonth=date("w", mktime(0, 0, 0, $month, 1, $year ));
+            echo $firstdayofmonth ;
     
                 //sinon afficher le mois a l'année actuelle
         }else{
             $day = array();
             $dayNumberInMonth = cal_days_in_month(CAL_GREGORIAN , date("m"), date("Y"));
+            $firstdayofmonth=date("w", mktime(0, 0, 0, date("m"), 1, date("Y") ));
+            echo $firstdayofmonth ;
         }
-    // utilisation d'une boucle et declaration d'une variable i initialisé a 1 et si i est inferieur au nombre de
-    // de jours du mois incrementer
-        for($i= 1 ; $i<$dayNumberInMonth; $i++){
-                
-            $day[$i] = $i+1; 
-            // if( mktime(0,0,0, $month+1, 0, $year)== $dayArray['']){
-            //     echo "<td></td>";
-            // }else{
-                echo "<td>".$i."</td>";
-            // }
+        
+
+        for ($i = 1; $i <= $dayNumberInMonth; $i++) {
+        if ($i % 7 == 1) {
+            echo '<tr><td>' . $i . '</td>';
+        } else {
+            echo '<td>' . $i . '</td>';
+            } 
         }
-         
+            echo '</tr>';
         }
+        
         ?>
 
 <!DOCTYPE html>
