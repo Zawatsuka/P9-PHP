@@ -1,46 +1,64 @@
 <?php 
-
+    function weeksPerMonth($m,$y){
+        $day = mktime(1, 1, 1, $m, 1, $y);
+        $nday = date('t', $day);
+        $fday = date("N",$day);
+        $xday = $nday + $fday;
+        $n =  $xday % 7 != 0 ? floor($xday/7) +1 : floor($xday/7);
+        return $n;
+    }
+        
     // creation d'une fonction calendar 
-     function calendar(){
-        $daysofweek = array("lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche");
-        // declaration des variables liés au select month et year du html
+    function calendar(){
+        // tableau qui va avoir les jours ainsi que les cases vides
+        $totalDay =[];
         $month = $_GET['month'];
         $year = $_GET['year'];
-    
-        // si le l'utilisateur utilise le select pour un mois et une année donné
-        if(isset($month)& isset($year)){
-            $day = array();
-            // declaration d'une variable qui compte le nombre de jours dans un mois
-            $dayNumberInMonth = cal_days_in_month(CAL_GREGORIAN , $month, $year);
-            // declaration du premier jour du mois 
+        // condition pour savoir si get month et get year existe
+        if(isset($year,$month)){
             $firstdayofmonth = date("w", mktime(0, 0, 0, $month, 1, $year ));
-            for($i=0 ; $i<$firstdayofmonth; $i++){
-                $day[]= null;
-                echo "<td></td>";
+            $lastDayOfMonth= date('Y-m-t', mktime(0, 0, 0, $month, 1, $year));
+            // boucle pour ajouter des cases vides au debut du tableau
+            for($i=0; $i<$firstdayofmonth-1 ; $i++){
+              echo $totalDay[$i]= NULL;
+            
             }
-            var_dump($day);
-                //sinon afficher le mois a l'année actuelle
+            // boucle pour ajouter les jours d'un mois donner
+            for($i=1 ; $i<=weeksPerMonth($month,$year); $i++){
+                echo "<tr>";
+                for($j=1 ; $j<=7 ; $j++){
+                    echo "<td>". $i ."</td>";
+                }
+                echo "</tr>";
+            }
+            // boucle pour ajouter des cases vides a la fin du tableau
+            for($i=$lastDayOfMonth; $i<7 ; $i++){
+                echo $totalDay[$i]= NULL;
+              
+              }
         }else{
-            $day = array();
+            $totalDay =[];
             $dayNumberInMonth = cal_days_in_month(CAL_GREGORIAN , date("m"), date("Y"));
-            // declaration du premier jour du mois actuel
-            $firstdayofmonth=date("w", mktime(0, 0, 0, date("m"), 1, date("Y") ));
-                echo $firstdayofmonth ;
+            for($i=0; $i<$firstdayofmonth-1 ; $i++){
+                echo $totalDay[$i]= NULL;
+              
+              }
+              for($i=1 ; $i<=weeksPerMonth(date("m"),date("Y")); $i++){
+                  echo "<tr>";
+                  for($j=1 ; $j<=7 ; $j++){
+                      echo "<td>". $i ."</td>";
+                  }
+                  echo "</tr>";
+              }
+              for($i=$lastDayOfMonth; $i<7 ; $i++){
+                  echo $totalDay[$i]= NULL;
+                
+                }
         }
-
-
-        for ($i = 1; $i < $dayNumberInMonth; $i++) {
-            $day[]= $i;
-        if ($i % 7 == 1) {
-            echo '<tr><td>' . $i . '</td>';
-        } else {
-            echo '<td>' . $i . '</td>';
-            } 
-        }
-            echo '</tr>';
-        }
-        ?>
-
+        
+    }
+       
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -48,7 +66,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Document</title>
+    <title>Calendrier</title>
 </head>
 
 <body>
@@ -90,9 +108,7 @@
             </tr>
         </thead>
         <tbody>
-        <tr>
             <?php calendar();?>
-        </tr>
         </tbody>
     </table>
 </body>
