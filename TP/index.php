@@ -1,63 +1,29 @@
 <?php 
-    function weeksPerMonth($m,$y){
-        $day = mktime(1, 1, 1, $m, 1, $y);
-        $nday = date('t', $day);
-        $fday = date("N",$day);
-        $xday = $nday + $fday;
-        $n =  $xday % 7 != 0 ? floor($xday/7) +1 : floor($xday/7);
-        return $n;
-    }
-        
-    // creation d'une fonction calendar 
-    function calendar(){
-        // tableau qui va avoir les jours ainsi que les cases vides
-        $totalDay =[];
-        $month = $_GET['month'];
+    if(isset($_GET['month'],$_GET['year'])){
+        $month= $_GET['month'];
         $year = $_GET['year'];
-        // condition pour savoir si get month et get year existe
-        if(isset($year,$month)){
-            $firstdayofmonth = date("w", mktime(0, 0, 0, $month, 1, $year ));
-            $lastDayOfMonth= date('Y-m-t', mktime(0, 0, 0, $month, 1, $year));
-            // boucle pour ajouter des cases vides au debut du tableau
-            for($i=0; $i<$firstdayofmonth-1 ; $i++){
-              echo $totalDay[$i]= NULL;
-            
-            }
-            // boucle pour ajouter les jours d'un mois donner
-            for($i=1 ; $i<=weeksPerMonth($month,$year); $i++){
-                echo "<tr>";
-                for($j=1 ; $j<=7 ; $j++){
-                    echo "<td>". $i ."</td>";
-                }
-                echo "</tr>";
-            }
-            // boucle pour ajouter des cases vides a la fin du tableau
-            for($i=$lastDayOfMonth; $i<7 ; $i++){
-                echo $totalDay[$i]= NULL;
-              
-              }
-        }else{
-            $totalDay =[];
-            $dayNumberInMonth = cal_days_in_month(CAL_GREGORIAN , date("m"), date("Y"));
-            for($i=0; $i<$firstdayofmonth-1 ; $i++){
-                echo $totalDay[$i]= NULL;
-              
-              }
-              for($i=1 ; $i<=weeksPerMonth(date("m"),date("Y")); $i++){
-                  echo "<tr>";
-                  for($j=1 ; $j<=7 ; $j++){
-                      echo "<td>". $i ."</td>";
-                  }
-                  echo "</tr>";
-              }
-              for($i=$lastDayOfMonth; $i<7 ; $i++){
-                  echo $totalDay[$i]= NULL;
-                
-                }
-        }
         
+    }else{
+        $month= date('m');
+        $year = date('Y');
     }
-       
+    $allDaysInMyMonth = [];
+    $firstDayOfMonth = date("N", mktime(0, 0, 0, $month, 1, $year));
+    $nbDaysInMyMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    
+    $lastDayOfMonth = date("N", mktime(0, 0, 0, $month, $nbDaysInMyMonth, $year));
+    for($i=0 ; $i<$firstDayOfMonth-1 ; $i++){
+        array_push($allDaysInMyMonth,NULL);
+    }
+            
+    for($i=1 ; $i<=$nbDaysInMyMonth ; $i++){
+        array_push($allDaysInMyMonth,$i);
+    }
+            
+    for($i=$lastDayOfMonth ; $i<7 ; $i++){
+        array_push($allDaysInMyMonth,NULL);
+        }    
+        var_dump($allDaysInMyMonth);   
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -108,7 +74,18 @@
             </tr>
         </thead>
         <tbody>
-            <?php calendar();?>
+                <?php
+                for($i=0 ; $i<count($allDaysInMyMonth)/7;$i++){
+                    echo '<tr>';
+                    foreach($allDaysInMyMonth as $value){
+                        if(count($allDaysInMyMonth)<=7){
+                            echo '</tr>';
+                        }else{
+                        echo '<td>' . $value. '</td>';   
+                        }         
+                    } 
+                }
+                 ?>
         </tbody>
     </table>
 </body>
