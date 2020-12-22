@@ -1,6 +1,10 @@
 table,
 td {
-    border: 1px solid rgb(0, 0, 0);
+    border: 1px solid #333;
+    padding: 20px;
+    font-family: 'Langar', cursive;
 }
 
-
+thead{
+    background-image: radial-gradient(circle, #2b53f4, #5446e4, #6a39d4, #7929c3, #8313b2);
+}

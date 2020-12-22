@@ -22,8 +22,7 @@
             
     for($i=$lastDayOfMonth ; $i<7 ; $i++){
         array_push($allDaysInMyMonth,NULL);
-        }    
-        var_dump($allDaysInMyMonth);   
+        }      
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,7 +30,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets\css\style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Langar&display=swap" rel="stylesheet">
     <title>Calendrier</title>
 </head>
 
@@ -61,9 +62,10 @@
 
         <input type="submit" value="let's go !!">
     </form>
+    <h2><?= $month." ".$year ?></h2>
     <table>
-        <thead>
-            <tr class="bordertabs">
+        <thead class="test">
+            <tr>
                 <th>Lundi</th>
                 <th>Mardi</th>
                 <th>Mercredi</th>
@@ -74,20 +76,20 @@
             </tr>
         </thead>
         <tbody>
-                <?php
-                for($i=0 ; $i<count($allDaysInMyMonth)/7;$i++){
-                    echo '<tr>';
-                    foreach($allDaysInMyMonth as $value){
-                        if(count($allDaysInMyMonth)<=7){
-                            echo '</tr>';
-                        }else{
-                        echo '<td>' . $value. '</td>';   
-                        }         
-                    } 
-                }
-                 ?>
+             <?php 
+                $k= 0;
+                for($j=0 ; $j<count($allDaysInMyMonth)/7 ; $j++){
+                  echo "<tr>";
+                   for($i=0; $i<7 ; $i++){
+                    echo "<td>". $allDaysInMyMonth[$k] ."</td>";
+                    $k++;
+                   } 
+                  echo "</tr>"; 
+                }              
+             ?>
         </tbody>
     </table>
+    
 </body>
 
 </html>
