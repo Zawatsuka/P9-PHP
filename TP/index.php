@@ -10,7 +10,6 @@
     $allDaysInMyMonth = [];
     $firstDayOfMonth = date("N", mktime(0, 0, 0, $month, 1, $year));
     $nbDaysInMyMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-    
     $lastDayOfMonth = date("N", mktime(0, 0, 0, $month, $nbDaysInMyMonth, $year));
     for($i=0 ; $i<$firstDayOfMonth-1 ; $i++){
         array_push($allDaysInMyMonth,NULL);

@@ -1,3 +1,6 @@
+html,body{
+    background-image: linear-gradient(to bottom, #e3e3e3, #c9c9d9, #abb1d0, #889ac7, #5d85be);
+}
 table,
 td {
     border: 1px solid #333;
